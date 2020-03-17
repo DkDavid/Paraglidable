@@ -54,6 +54,8 @@ var oms = new OverlappingMarkerSpiderfier(map);
 
 function tilesUrl(date)
 {
+	return "imgs/StayAtHome.png";
+
     return 'data/tiles/'+ date +'/256/{z}/{x}/{y}_transpa.{ext}';
 }
 
@@ -194,7 +196,7 @@ function createMarkers(feature, spotToOpen=-1)
 
     marker.spotId     = feature.properties.id;
     marker.name       = feature.properties.name;
-    marker.flyability = feature.properties.flyability;
+    marker.flyability = 0;
 
     marker.addTo(map);
     oms.addMarker(marker); 
@@ -224,10 +226,10 @@ function updateTakeoffFlyability(flyability)
 function updateMarkers(feature)
 {
     var strId = feature.properties.id.toString();
-    $(".takeoffIcon_"+strId).css("background", flyabilityColor(feature.properties.flyability));
+    $(".takeoffIcon_"+strId).css("background", flyabilityColor(0));
 
     if (feature.properties.id == g_currentOpenedSpotId) {
-        updateTakeoffFlyability(feature.properties.flyability);
+        updateTakeoffFlyability(0);
     }
 }
 
@@ -463,6 +465,7 @@ function setSelectedDayColor(strDate)
 
 function downloadSpotsPredictions()
 {
+	return;
     updateTakeoffFlyability(-1); // waiting
 
     $.getJSON("data/tiles/"+ g_currentDate +"/spots.json", function(data){loadSpots(data)});

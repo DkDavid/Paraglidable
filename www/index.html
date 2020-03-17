@@ -824,6 +824,8 @@ function createBaseTilesLayers(className)
 
 function tilesUrl(date, transpa)
 {
+	return "imgs/StayAtHome.png";
+
     if (g_mode == 'analysis')
     {
         tilesdir = 'data/tiles_anl/'+date.substring(0,4);
@@ -946,7 +948,7 @@ function loadSpots(date, decodedJson)
                 pointToLayer : function(feature, latlng) {
                     return L.circleMarker(latlng, {
                         radius : 4.4, // + Math.sqrt(feature.properties.nbFlights/800.0)
-                        fillColor : flyabilityColor_with_colorblind(feature.properties.flyability),
+                        fillColor : flyabilityColor_with_colorblind(0),
                         color : "#000",
                         weight : 1,
                         opacity : 1,
@@ -957,7 +959,7 @@ function loadSpots(date, decodedJson)
                 onEachFeature: function(feature, layer) {
                     if (feature.properties && feature.properties.name) {
                         layer.bindPopup(popupContent(feature.properties.name, 
-                                                     feature.properties.flyability,
+                                                     0,
                                                      feature.properties.id,
                                                      feature.properties.nbFlights), {closeButton: false, offset: L.point(0, -10)});
                         layer.on('mouseover', function() { myOpenPopup(feature, layer);});
@@ -1029,6 +1031,7 @@ function callBackSpots(date) {
 
 function downloadSpotsPredictions()
 {
+	return;
     if (g_spotsLayer != null) {
         if (map.hasLayer(g_spotsLayer))
             map.removeLayer(g_spotsLayer);

@@ -41,7 +41,8 @@ function getPrediction($date, $coords)
 	$pos    = $nbVals*($coords['x']*256 + $coords['y']);
 	$vals 	= array();
 	for ($v=0; $v<$nbVals; $v++) {
-		array_push($vals, round(ord(substr($contents, $pos + $v, 1))/255.0, 4));
+		//array_push($vals, round(ord(substr($contents, $pos + $v, 1))/255.0, 4));
+		array_push($vals, 0);
 	}
 
 	return $vals;
@@ -77,7 +78,8 @@ function getSpotPrediction($date, $spotId)
 	{
 		if ($arSpots[$s]->properties->id == $spotId)
 		{
-			return array("flyability"=>$arSpots[$s]->properties->flyability);
+			//return array("flyability"=>$arSpots[$s]->properties->flyability);
+			return array("flyability"=>0);
 		}
 	}
 
